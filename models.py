@@ -150,6 +150,25 @@ class User(db.Model):
         return user
 
     @classmethod
+    def edit(cls, username, email, image_url, header_image_url, bio, password):
+        """Edit user.
+
+        Hashes password and edits user in system.
+        """
+
+        hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
+
+        user = User(
+            username=username,
+            email=email,
+            image_url=image_url,
+            header_image_url=header_image_url,
+            bio=bio,
+            password=hashed_pwd
+        )
+        return user
+
+    @classmethod
     def authenticate(cls, username, password):
         """Find user with `username` and `password`.
 
